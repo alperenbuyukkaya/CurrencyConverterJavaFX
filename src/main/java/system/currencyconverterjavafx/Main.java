@@ -1,43 +1,25 @@
 package system.currencyconverterjavafx;
 
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 public class Main extends Application {
-    Scene mainScene;
-    Scene loadingScene;
-    Button mainButton;
-    TextField amountTextField;
-    Text conversionFromText;
-    Text conversionToText;
-    Text resultText;
-    Text amountText;
-    Text loadingText;
-    ComboBox conversionBox;
-    ComboBox convertToBox;
+
+
+    InterfaceManager mainUI = new InterfaceManager();
+    ControllerHandler mainCH = new ControllerHandler(mainUI);
     JSONObject exchangeRates;
-    DecimalFormat numberFormat = new DecimalFormat("0.00");
-    public void buttonMethod(RequestHandler mainRequestHandler) throws JSONException {
+
+    /*public void buttonMethod(RequestHandler mainRequestHandler) throws JSONException {
         double mainRate;
         double currencyAmount;
-        String conversionCurrency = (String) conversionBox.getValue();
+        String conversionCurrency = (String) referenceFields.;
         String convertedCurrency = (String) convertToBox.getValue();
         try{
             currencyAmount = Double.parseDouble(amountTextField.getText());
@@ -47,46 +29,42 @@ public class Main extends Application {
         }
         double rate = Double.parseDouble(exchangeRates.get(convertedCurrency).toString()) / Double.parseDouble(exchangeRates.get(conversionCurrency).toString());
         resultText.setText(currencyAmount + " " + conversionCurrency + " equals " + numberFormat.format(rate * currencyAmount) + " " + convertedCurrency + ".");
-    }
+    }*/
 
     @Override
     public void start(Stage mainStage) throws IOException {
 
+
         RequestHandler mainRequestHandler = new RequestHandler();
 
-        mainButton = new Button("Convert");
 
-        mainButton.setOnAction(event -> new Thread(() -> {
+
+        mainUI.mainButton.setOnAction(event -> new Thread(() -> {
             try {
-                buttonMethod(mainRequestHandler);
+                mainCH.buttonMethod(exchangeRates);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
         }).start());
 
-        conversionFromText = new Text("Enter the currency to be converted from:");
-        conversionToText = new Text("Enter the currency to be converted to:");
-        resultText = new Text("Result");
-        amountText = new Text("Amount: ");
-        conversionBox = new ComboBox();
-        convertToBox = new ComboBox();
-        amountTextField = new TextField();
-        loadingText = new Text("Loading");
-
-        VBox loadingLayout  = new VBox(loadingText);
-        VBox mainLayout = new VBox(amountText, amountTextField, conversionFromText, conversionBox, conversionToText, convertToBox, mainButton, resultText);
-        mainLayout.setPadding(new Insets(10,10,10,10));
-        mainLayout.setSpacing(5);
 
         mainStage.setTitle("Currency Converter");
-        mainScene = new Scene(mainLayout, 300, 150);
-        loadingScene = new Scene(loadingLayout, 300, 150);
-        mainScene.setFill(Color.LIGHTGRAY);
 
         mainStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/dollarsign.png")));
-        mainStage.setScene(loadingScene);
+        mainStage.setScene(mainUI.mainScene);
         mainStage.show();
-        new Thread(() -> {
+        Thread thread = new Thread(() -> {
+            while (true){
+                exchangeRates = mainCH.updateValues(mainRequestHandler, mainStage);
+                try {
+                    TimeUnit.MINUTES.sleep(10);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        thread.start();
+        /*new Thread(() -> {
             while (true){
                 try{
                     exchangeRates = mainRequestHandler.getURL("https://api.frankfurter.app/latest?base=USD");
@@ -117,11 +95,11 @@ public class Main extends Application {
                     throw new RuntimeException(e);
                 }
             }
-        }).start();
+        }).start();*/
         /*while (exchangeRates == null){
             System.out.println(exchangeRates);
         }*/
-        System.out.println(exchangeRates);
+        //System.out.println(exchangeRates);
         //mainStage.setScene(mainScene);
     }
 
