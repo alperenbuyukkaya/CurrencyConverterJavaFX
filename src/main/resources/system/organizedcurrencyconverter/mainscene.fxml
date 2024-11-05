@@ -1,92 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="602.0" prefWidth="814.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="system.organizedcurrencyconverter.HelloController">
    <children>
-      <Button layoutX="148.0" layoutY="158.0" mnemonicParsing="false" onAction="#onTestButtonClick" text="Button" />
-      <LineChart fx:id="exchangeChart" animated="false" layoutX="291.0" layoutY="270.0" prefHeight="333.0" prefWidth="522.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0f61ae" height="30.0" layoutX="333.0" layoutY="300.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="150.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0f61ae" height="274.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="814.0" />
+      <Button layoutX="380.0" layoutY="229.0" mnemonicParsing="false" onAction="#onTestButtonClick" text="Convert" />
+      <LineChart fx:id="exchangeChart" animated="false" layoutX="-1.0" layoutY="358.0" legendVisible="false" prefHeight="246.0" prefWidth="814.0" title="USD/TRY">
         <xAxis>
-          <CategoryAxis fx:id="dateAxis" side="BOTTOM" />
+          <CategoryAxis fx:id="dateAxis" label="Dates" side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis fx:id="rateAxis" autoRanging="false" side="LEFT" upperBound="120.5" />
+          <NumberAxis fx:id="rateAxis" animated="false" autoRanging="false" label="Rates" lowerBound="0.9" side="LEFT" tickLabelGap="1.0" tickUnit="1.0" upperBound="1.0" />
         </yAxis>
       </LineChart>
-      <Label layoutX="29.0" layoutY="34.0" prefHeight="69.0" prefWidth="369.0" text="USD/EUR = 0.92" wrapText="true">
+      <ComboBox layoutX="140.0" layoutY="94.0" prefWidth="150.0" />
+      <ComboBox layoutX="518.0" layoutY="93.0" prefWidth="150.0" />
+      <Group layoutX="141.0" layoutY="90.0" />
+      <Button fx:id="changeButton" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="349.0" layoutY="91.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0">
+         <graphic>
+            <ImageView fitHeight="22.0" fitWidth="104.0" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../../images/arrows.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <TextField layoutX="332.0" layoutY="184.0" />
+      <Label layoutX="352.0" layoutY="141.0" prefHeight="43.0" prefWidth="110.0" text="Amount">
          <font>
-            <Font size="48.0" />
+            <Font size="29.0" />
          </font>
       </Label>
-      <BorderPane layoutX="456.0" layoutY="38.0" prefHeight="121.0" prefWidth="142.0">
-         <top>
-            <Label prefHeight="51.0" prefWidth="83.0" text="Daily" wrapText="true" BorderPane.alignment="CENTER">
-               <font>
-                  <Font size="35.0" />
-               </font>
-            </Label>
-         </top>
-         <center>
-            <Label prefHeight="82.0" prefWidth="130.0" text="\%4.02" textFill="#069c2b" wrapText="true" BorderPane.alignment="CENTER">
-               <font>
-                  <Font size="35.0" />
-               </font>
-               <graphic>
-                  <Label prefHeight="61.0" prefWidth="26.0" text="↑" textFill="#069c2b" wrapText="true">
-                     <font>
-                        <Font size="55.0" />
-                     </font>
-                  </Label>
-               </graphic>
-            </Label>
-         </center>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <effect>
-            <Blend />
-         </effect>
-      </BorderPane>
-      <Rectangle fill="TRANSPARENT" height="133.0" layoutX="452.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" width="152.0" />
-      <BorderPane layoutX="633.0" layoutY="38.0" prefHeight="121.0" prefWidth="142.0">
-         <top>
-            <Label prefHeight="51.0" prefWidth="131.0" text="Monthly" wrapText="true" BorderPane.alignment="CENTER">
-               <font>
-                  <Font size="35.0" />
-               </font>
-            </Label>
-         </top>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <effect>
-            <Blend />
-         </effect>
-         <center>
-            <Label prefHeight="82.0" prefWidth="144.0" text="\%31.02" textFill="#069c2b" wrapText="true" BorderPane.alignment="CENTER">
-               <font>
-                  <Font size="35.0" />
-               </font>
-               <graphic>
-                  <Label prefHeight="61.0" prefWidth="26.0" text="↑" textFill="#069c2b" wrapText="true">
-                     <font>
-                        <Font size="55.0" />
-                     </font>
-                  </Label>
-               </graphic>
-            </Label>
-         </center>
-      </BorderPane>
-      <Rectangle fill="TRANSPARENT" height="133.0" layoutX="629.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" width="158.0" />
+      <Label layoutX="347.0" layoutY="302.0" prefHeight="26.0" prefWidth="118.0" text="1 USD = 34 TRY" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0f61ae" height="71.0" layoutX="65.0" layoutY="289.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="150.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0f61ae" height="71.0" layoutX="593.0" layoutY="289.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="150.0" />
+      <Label layoutX="117.0" layoutY="287.0" prefHeight="30.0" prefWidth="48.0" text="Daily" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="629.0" layoutY="287.0" prefHeight="30.0" prefWidth="78.0" text="Monthly" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="116.0" layoutY="315.0" prefHeight="30.0" prefWidth="48.0" text="7.0%" textAlignment="CENTER" textFill="#fa0404">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="644.0" layoutY="315.0" prefHeight="30.0" prefWidth="58.0" text="32.0%" textAlignment="CENTER" textFill="#0be72c">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

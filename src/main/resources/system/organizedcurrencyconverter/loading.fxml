@@ -9,13 +9,13 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="system.organizedcurrencyconverter.HelloController">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="261.0" fitWidth="324.0" layoutX="138.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="76.0" AnchorPane.leftAnchor="133.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="108.0">
          <image>
             <Image url="@../../images/mountain.jpg" />
          </image>
       </ImageView>
       <ProgressBar fx:id="loadingbar" layoutX="18.0" layoutY="356.0" prefHeight="20.0" prefWidth="563.0" progress="0.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.799999999999955" />
-      <Label layoutY="24.0" prefHeight="77.0" prefWidth="600.0" text="The program is loading." textAlignment="JUSTIFY" textFill="#f4efef" AnchorPane.bottomAnchor="298.40000000000003" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+      <Label layoutY="8.0" prefHeight="77.0" prefWidth="600.0" text="The program is loading." textAlignment="JUSTIFY" textFill="#130000" AnchorPane.bottomAnchor="314.4" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0">
          <font>
             <Font name="Arial Bold" size="52.0" />
          </font>

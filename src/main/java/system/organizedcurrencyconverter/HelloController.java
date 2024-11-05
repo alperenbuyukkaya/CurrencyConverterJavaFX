@@ -13,6 +13,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import org.json.JSONException;
 
@@ -27,18 +28,15 @@ public class HelloController {
     @FXML
     private LineChart<String, Number> exchangeChart;
     @FXML
+    private Button changeButton;
+    @FXML
     private CategoryAxis dateAxis;
     @FXML
     private NumberAxis rateAxis;
     @FXML
     private HelloApplication application;
-
     @FXML
     public void initialize() {
-        /*dateAxis.setTickLabelRotation(90);
-
-        rateAxis.setAutoRanging(false);
-        rateAxis.setTickUnit(0.1);*/
         if (initialized) {
             return;
         }
@@ -78,6 +76,10 @@ public class HelloController {
                             try {
                                 Parent scene = FXMLLoader.load(getClass().getResource("mainscene.fxml"));
                                 application.changeScene(scene);
+                                /*Image img = new Image(getClass().getResourceAsStream("/images/arrows.png"));
+                                ImageView imageView = new ImageView(img);
+                                imageView.setPreserveRatio(true);
+                                changeButton.setGraphic(imageView);*/
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -114,7 +116,7 @@ public class HelloController {
     @FXML
     protected void onTestButtonClick() throws JSONException {
         exchangeChart.getData().clear();
-        ArrayList<String> pastData = currencyService.getPastData("USD", "EUR");
+        ArrayList<String> pastData = currencyService.getPastData("USD", "TRY");
         ArrayList<Double> pastValues = new ArrayList<>();
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         for (String x : pastData) {
@@ -125,8 +127,9 @@ public class HelloController {
         double smallestValue = findSmallest(pastValues);
         double largestValue = findLargest(pastValues);
         System.out.println(rateAxis + " " + dateAxis);
-        rateAxis.setUpperBound(largestValue + (largestValue/100.0));
-        rateAxis.setLowerBound(smallestValue - (smallestValue/100.0));
+        rateAxis.setUpperBound(largestValue + (smallestValue/100.0));
+        rateAxis.setLowerBound(smallestValue - (largestValue/100.0));
+        rateAxis.setTickUnit(smallestValue/100.0);
         System.out.println(rateAxis.getLayoutBounds());
         exchangeChart.getData().add(series);
     }
